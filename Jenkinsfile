@@ -58,19 +58,19 @@ pipeline {
                 script {
                     try {
                         withSonarQubeEnv('SonarQube') {
-                            withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_TOKEN')]) {
-                                sh '''
-                                    # Запуск анализа SonarQube через sonar-scanner
-                                    sonar-scanner \
-                                        -Dsonar.projectKey=go-app \
-                                        -Dsonar.projectName=Go Test Application \
-                                        -Dsonar.host.url=${SONAR_HOST_URL} \
-                                        -Dsonar.login=${SONAR_TOKEN} \
-                                        -Dsonar.sources=. \
-                                        -Dsonar.exclusions=**/*_test.go \
-                                        -Dsonar.go.coverage.reportPaths=coverage.out
-                                '''
-                            }
+                        withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_TOKEN')]) {
+                            sh """
+                                # Запуск анализа SonarQube через sonar-scanner
+                                sonar-scanner \
+                                    -Dsonar.projectKey=go-app \
+                                    -Dsonar.projectName=\"Go Test Application\" \
+                                    -Dsonar.host.url=${SONAR_HOST_URL} \
+                                    -Dsonar.login=${SONAR_TOKEN} \
+                                    -Dsonar.sources=. \
+                                    -Dsonar.exclusions=**/*_test.go \
+                                    -Dsonar.go.coverage.reportPaths=coverage.out
+                            """
+                        }
                         }
                     } catch (Exception e) {
                         echo "SonarQube analysis skipped: ${e.getMessage()}"
