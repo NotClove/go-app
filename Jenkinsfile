@@ -79,6 +79,13 @@ pipeline {
                 }
             }
         }
+
+        stage('Wait for SonarQube CE') {
+            steps {
+                echo 'Give SonarQube a few seconds to process analysis...'
+                sleep time: 5, unit: 'SECONDS'
+            }
+        }
         
         stage('Quality Gate') {
             steps {
