@@ -12,7 +12,7 @@ pipeline {
         // Docker
         DOCKER_IMAGE = 'go-app'
         DOCKER_TAG = "${env.BUILD_NUMBER}"
-        DOCKER_REGISTRY = "nexus:8082"
+        DOCKER_REGISTRY = "localhost:8082"
     }
     
     stages {
